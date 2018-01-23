@@ -1,26 +1,11 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include "util-system.h"
 #include "util-string.h"
-
-typedef struct {
-    char *logname;  // name when log in
-    char *passwd;   // password, usually is 'x'.
-    int uid;        // user id
-    int gid;        // group id
-    char *name;     // real name, usually same as logname
-    char *home;     // home directory
-    char *shell;    // default shell
-} user_info_t;
-
-typedef struct {
-    int         total;
-    user_info_t user[0];
-} users_info_t;
 
 #define PASSWD_FILE         "/etc/passwd"
 #define PASSWD_FILE_COLUMN  7
-
 
 #ifdef SYSTEM_MAIN
 #define PRINT(fmt, arg...)      printf("[%s] " fmt, __func__, ##arg)
@@ -28,7 +13,7 @@ typedef struct {
 #define PRINT(fmt, arg...)      
 #endif 
 
-int get_file_lines(const char *fname)
+static int get_file_lines(const char *fname)
 {
     FILE *file = fopen(fname, "r");
     int total = 0;
@@ -56,7 +41,7 @@ void users_free(users_info_t *users)
     free(users);
 }
 
-int get_users_impl(users_info_t *users)
+static int get_users_impl(users_info_t *users)
 {
     FILE *file = fopen(PASSWD_FILE, "r");
     if(!file) {

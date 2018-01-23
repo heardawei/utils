@@ -8,7 +8,7 @@
 
 using namespace std;
 
-#define RING_BUFFER_TEST_NUM 100
+#define RING_BUFFER_TEST_NUM 10
 void ring_buffer_free_element(void *ptr)
 {
     if(!ptr)
@@ -83,6 +83,14 @@ int main()
         printf("BasicSearch result_2 is %p, offset:%d\n", res2, (int)(res2-bs_arr));
     else
         printf("BasicSearch result_2 is %p\n", res2);
+
+    cout << "----------------------util-system.h----------------------" << endl;
+    users_info_t *users = get_users();
+    DEBUG_PRINT("debug users:\n");
+    users_print(users);
+    char *name = get_user_name_by_uid(users, 1000);
+    DEBUG_PRINT("get_user_name_by_uid(%d) --> %s\n", 1000, name);
+    users_free(users);
 
     cout << "----------------------util-ringbuffer.h----------------------" << endl;
     pthread_t pid_push, pid_pop;
