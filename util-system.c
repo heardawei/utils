@@ -114,7 +114,7 @@ char *get_user_name_by_uid(users_info_t *users, int uid)
     int index = 0;
     for(index=0; index < users->total; index++) {
         if(users->user[index].uid == uid)
-            return users->user[index].name;
+            return users->user[index].logname;
     }
     return NULL;
 }

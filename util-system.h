@@ -6,7 +6,7 @@ typedef struct {
     char *passwd;   // password, usually is 'x'.
     int uid;        // user id
     int gid;        // group id
-    char *name;     // real name, usually same as logname
+    char *name;     // detail name, usually same as logname
     char *home;     // home directory
     char *shell;    // default shell
 } user_info_t;
