@@ -75,6 +75,8 @@ int get_users_impl(users_info_t *users)
             mSplitFree(&toks, num_toks);
             continue;
         }
+        if(NULL != strchr(toks[4], ','))
+            *strchr(toks[4], ',') = '\0';
         users->user[users->total].logname  = strdup(toks[0]);
         users->user[users->total].passwd = strdup(toks[1]);
         users->user[users->total].uid      = atoi(toks[2]);
