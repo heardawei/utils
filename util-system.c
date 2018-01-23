@@ -23,7 +23,7 @@ typedef struct {
 
 
 #ifdef SYSTEM_MAIN
-#define PRINT(fmt, arg...)      printf("%s" fmt, __func__, ##arg)
+#define PRINT(fmt, arg...)      printf("[%s] " fmt, __func__, ##arg)
 #else
 #define PRINT(fmt, arg...)      
 #endif 
@@ -124,11 +124,23 @@ void users_print(users_info_t *users)
     }
 }
 
+char *get_user_name_by_uid(users_info_t *users, int uid)
+{
+    int index = 0;
+    for(index=0; index < users->total; index++) {
+        if(users->user[index].uid == uid)
+            return users->user[index].name;
+    }
+    return NULL;
+}
+
 #ifdef SYSTEM_MAIN
 int main(int argc, char const *argv[])
 {
     users_info_t *users = get_users();
     users_print(users);
+    char *name = get_user_name_by_uid(users, 1000);
+    PRINT("get_user_name_by_uid(%d) --> %s\n", 1000, name);
     users_free(users);
     return 0;
 }
