@@ -91,11 +91,11 @@ int main()
     DEBUG_PRINT("get_user_name_by_uid(%d) --> %s\n", 265, name);
     users_passwd_free(p_users_passwd);
 
+#ifdef __linux__
     users_utmp_t *p_users_utmp = get_users_utmp();
     users_utmp_print(p_users_utmp);
     users_utmp_free(p_users_utmp);
-
-
+#endif
 
     cout << "----------------------util-ringbuffer.h----------------------" << endl;
     pthread_t pid_push, pid_pop;
