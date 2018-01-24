@@ -85,12 +85,17 @@ int main()
         printf("BasicSearch result_2 is %p\n", res2);
 
     cout << "----------------------util-system.h----------------------" << endl;
-    users_info_t *users = get_users();
-    DEBUG_PRINT("debug users:\n");
-    users_print(users);
-    char *name = get_user_name_by_uid(users, 1000);
-    DEBUG_PRINT("get_user_name_by_uid(%d) --> %s\n", 1000, name);
-    users_free(users);
+    users_passwd_t *p_users_passwd = get_users_passwd();
+    users_passwd_print(p_users_passwd);
+    char *name = get_user_name_by_uid(p_users_passwd, 265);
+    DEBUG_PRINT("get_user_name_by_uid(%d) --> %s\n", 265, name);
+    users_passwd_free(p_users_passwd);
+
+    users_utmp_t *p_users_utmp = get_users_utmp();
+    users_utmp_print(p_users_utmp);
+    users_utmp_free(p_users_utmp);
+
+
 
     cout << "----------------------util-ringbuffer.h----------------------" << endl;
     pthread_t pid_push, pid_pop;

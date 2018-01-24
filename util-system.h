@@ -9,17 +9,35 @@ typedef struct {
     char *name;     // detail name, usually same as logname
     char *home;     // home directory
     char *shell;    // default shell
-} user_info_t;
+} user_passwd_t;
 
 typedef struct {
-    int         total;
-    user_info_t user[0];
-} users_info_t;
+    size_t        capacity;
+    size_t        used;
+    user_passwd_t *users;
+} users_passwd_t;
 
-void users_free(users_info_t *users);
-void users_print(users_info_t *users);
-users_info_t *get_users();
-char *get_user_name_by_uid(users_info_t *users, int uid);
+// get from /etc/passwd
+void users_passwd_free(users_passwd_t *users);
+void users_passwd_print(users_passwd_t *users);
+users_passwd_t *get_users_passwd();
 
+
+char *get_user_name_by_uid(users_passwd_t *users, int uid);
+
+
+typedef struct {
+    char *name;
+} user_utmp_t;
+
+typedef struct {
+    int capacity;
+    int used;
+    user_utmp_t *users;
+} users_utmp_t;
+
+void users_utmp_free(users_utmp_t *users);
+void users_utmp_print(users_utmp_t *users);
+users_utmp_t *get_users_utmp();
 
 #endif // __UTIL_SYSTEM_H__
