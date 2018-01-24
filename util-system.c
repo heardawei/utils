@@ -289,7 +289,7 @@ void users_utmp_print(users_utmp_t *users)
     for(index=0; index<users->used; index++) {
         printf("%s,", users->users[index].name);
     }
-    printf("\b\n");
+    printf("\b \n");
 }
 
 #endif
