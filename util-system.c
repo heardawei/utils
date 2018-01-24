@@ -303,7 +303,7 @@ int main(int argc, char const *argv[])
     PRINT("get_user_name_by_uid(%d) --> %s\n", 1000, name);
     users_passwd_free(p_users_passwd);
 
-    user_utmp_t *p_users_utmp = get_users_utmp();
+    users_utmp_t *p_users_utmp = get_users_utmp();
     users_utmp_print(p_users_utmp);
     users_utmp_free(p_users_utmp);
     return 0;
