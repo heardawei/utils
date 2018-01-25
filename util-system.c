@@ -70,12 +70,12 @@ static int get_users_passwd_impl(users_passwd_t *users)
     users->used = 0;
     while(NULL != fgets(line, sizeof(line), file))
     {
-        char *start = strip(line);
+        char *start = str_strip(line);
         char **toks;
         int num_toks = 0;
-        toks = mSplit(start, ":", PASSWD_FILE_COLUMN, &num_toks, 0);
+        toks = str_split(start, ":", PASSWD_FILE_COLUMN, &num_toks, 0);
         if(PASSWD_FILE_COLUMN != num_toks) {
-            mSplitFree(&toks, num_toks);
+            str_split_free(&toks, num_toks);
             continue;
         }
         if(user_passwd_prepare_alloc(users) < 0)
@@ -89,7 +89,7 @@ static int get_users_passwd_impl(users_passwd_t *users)
         users->users[users->used].name     = strdup(toks[4]);
         users->users[users->used].home     = strdup(toks[5]);
         users->users[users->used].shell    = strdup(toks[6]);
-        mSplitFree(&toks, num_toks);
+        str_split_free(&toks, num_toks);
         users->used++;
     }
     return 0;

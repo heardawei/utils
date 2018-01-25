@@ -5,10 +5,10 @@
 // extern "C" {
 // #endif
 
-char *strip(char *string);
+char *str_strip(char *str);
 char *get_value_by_key(const char *haystack, const char *needle, char sep, int ignore_case);
-void mSplitFree(char*** pbuf, int num_toks);
-char** mSplit(const char* str, const char* sep_chars, const int max_toks,
+void str_split_free(char*** p_buff, int num_toks);
+char** str_split(const char* str, const char* sep_chars, const int max_toks,
     int* num_toks, const char meta_char);
 
 // #ifdef __cplusplus

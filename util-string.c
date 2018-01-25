@@ -5,10 +5,10 @@
 #include <ctype.h>
 #include <stdlib.h>
 
-char *strip(char *string)
+char *str_strip(char *str)
 {
-    char *start = string;
-    char *end = string + strlen(string);
+    char *start = str;
+    char *end = str + strlen(str);
     while(start < end) {
         if(isspace(*start))
             *start = '\0';
@@ -43,7 +43,7 @@ char *get_value_by_key(const char *haystack, const char *needle, char sep, int i
     return NULL;
 }
 
-static char* mSplitAddTok(const char* str, const int len, const char* sep_chars, const char meta_char)
+static char* str_split_add_tok(const char* str, const int len, const char* sep_chars, const char meta_char)
 {
     size_t i, j, k;
     char* tok;
@@ -118,7 +118,7 @@ static char* mSplitAddTok(const char* str, const int len, const char* sep_chars,
     return tok;
 }
 
-static int SnortStrncpy(char *dst, const char *src, size_t dst_size)
+static int str_snort_strncpy(char *dst, const char *src, size_t dst_size)
 {
     char *ret = NULL;
 
@@ -139,12 +139,12 @@ static int SnortStrncpy(char *dst, const char *src, size_t dst_size)
     return 0;
 }
 
-static char *SnortStrndup(const char *src, size_t dst_size)
+static char *str_snort_strndup(const char *src, size_t dst_size)
 {
     char *ret = (char *)calloc(1, dst_size + 1);
     int ret_val;
 
-    ret_val = SnortStrncpy(ret, src, dst_size + 1);
+    ret_val = str_snort_strncpy(ret, src, dst_size + 1);
 
     if(ret_val == -1) {
         free(ret);
@@ -157,27 +157,27 @@ static char *SnortStrndup(const char *src, size_t dst_size)
 #define TOKS_BUF_SIZE   100
 /****************************************************************
  *
- * Free the buffer allocated by mSplit().
+ * Free the buffer allocated by str_split().
  *
  * char** toks = NULL;
  * int num_toks = 0;
  * toks = (str, " ", 2, &num_toks, 0);
- * mSplitFree(&toks, num_toks);
+ * str_split_free(&toks, num_toks);
  *
  * At this point, toks is again NULL.
  *
  ****************************************************************/
-void mSplitFree(char*** pbuf, int num_toks)
+void str_split_free(char*** p_buff, int num_toks)
 {
     int i;
     char** buf;  /* array of string pointers */
 
-    if ( pbuf==NULL || *pbuf==NULL )
+    if ( p_buff==NULL || *p_buff==NULL )
     {
         return;
     }
 
-    buf = *pbuf;
+    buf = *p_buff;
 
     for ( i=0; i<num_toks; i++ )
     {
@@ -189,12 +189,12 @@ void mSplitFree(char*** pbuf, int num_toks)
     }
 
     free(buf);
-    *pbuf = NULL;
+    *p_buff = NULL;
 }
 
 /****************************************************************
  *
- * Function: mSplit()
+ * Function: str_split()
  *
  * Purpose: Splits a string into tokens non-destructively.
  *
@@ -221,7 +221,7 @@ void mSplitFree(char*** pbuf, int num_toks)
  *
  ****************************************************************/
 
-char** mSplit(const char* str, const char* sep_chars, const int max_toks,
+char** str_split(const char* str, const char* sep_chars, const int max_toks,
     int* num_toks, const char meta_char)
 {
     size_t cur_tok = 0;  /* current token index into array of strings */
@@ -288,10 +288,10 @@ char** mSplit(const char* str, const char* sep_chars, const int max_toks,
     if ((cur_tok + 1) == (size_t)max_toks)
     {
         retstr = (char**)calloc(1, sizeof(char*));
-        retstr[cur_tok] = SnortStrndup(&str[i], strlen(str) - i);
+        retstr[cur_tok] = str_snort_strndup(&str[i], strlen(str) - i);
         if (retstr[cur_tok] == NULL)
         {
-            mSplitFree(&retstr, cur_tok + 1);
+            str_split_free(&retstr, cur_tok + 1);
             return NULL;
         }
 
@@ -335,7 +335,7 @@ char** mSplit(const char* str, const char* sep_chars, const int max_toks,
 
             /* Allocate a buffer.  The length will not have included the
              * meta char of escaped separators */
-            toks[cur_tok] = mSplitAddTok(&str[tok_start], j - tok_start, sep_chars, meta_char);
+            toks[cur_tok] = str_split_add_tok(&str[tok_start], j - tok_start, sep_chars, meta_char);
 
             /* Increment current token index */
             cur_tok++;
@@ -424,10 +424,10 @@ char** mSplit(const char* str, const char* sep_chars, const int max_toks,
                         break;
                 }
 
-                retstr[cur_tok] = SnortStrndup(&str[i], j - i);
+                retstr[cur_tok] = str_snort_strndup(&str[i], j - i);
                 if (retstr[cur_tok] == NULL)
                 {
-                    mSplitFree(&retstr, cur_tok + 1);
+                    str_split_free(&retstr, cur_tok + 1);
                     return NULL;
                 }
 
@@ -474,7 +474,7 @@ char** mSplit(const char* str, const char* sep_chars, const int max_toks,
         retstr = toks;
     }
 
-    retstr[cur_tok] = mSplitAddTok(&str[tok_start], j - tok_start, sep_chars, meta_char);
+    retstr[cur_tok] = str_split_add_tok(&str[tok_start], j - tok_start, sep_chars, meta_char);
 
     /* Just add one to cur_tok index instead of incrementing
      * since we're done */
