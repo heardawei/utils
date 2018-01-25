@@ -180,7 +180,7 @@ int main(void)
         printf("\tpath_isabs(%s)   --> %d\n", TEST_PATH1, path_isabs(TEST_PATH1));
         printf("\tpath_exists(%s)     --> %d\n", TEST_PATH1, path_exists(TEST_PATH1));
         if(path_exists(TEST_PATH1))
-            printf("\tpath_getsize(%s)     --> %ld\n", TEST_PATH1, path_getsize(TEST_PATH1));
+            printf("\tpath_getsize(%s)     --> %lld\n", TEST_PATH1, path_getsize(TEST_PATH1));
         if(0 == path_getamctime(TEST_PATH1, &atime, &mtime, &ctime))
             printf("\tpath_getamctime(%s) --> atime:%lu, mtime:%lu, ctime:%lu\n", TEST_PATH1, atime, mtime, ctime);
     }
@@ -189,7 +189,7 @@ int main(void)
         printf("\tpath_isabs(%s)   --> %d\n", TEST_PATH2, path_isabs(TEST_PATH2));
         printf("\tpath_exists(%s)     --> %d\n", TEST_PATH2, path_exists(TEST_PATH2));
         if(path_exists(TEST_PATH2))
-            printf("\tpath_getsize(%s)     --> %ld\n", TEST_PATH2, path_getsize(TEST_PATH2));
+            printf("\tpath_getsize(%s)     --> %lld\n", TEST_PATH2, path_getsize(TEST_PATH2));
         if(0 == path_getamctime(TEST_PATH2, &atime, &mtime, &ctime))
             printf("\tpath_getamctime(%s) --> atime:%lu, mtime:%lu, ctime:%lu\n", TEST_PATH2, atime, mtime, ctime);
     }
@@ -198,7 +198,7 @@ int main(void)
         printf("\tpath_isabs(%s)   --> %d\n", TEST_PATH3, path_isabs(TEST_PATH3));
         printf("\tpath_exists(%s)     --> %d\n", TEST_PATH3, path_exists(TEST_PATH3));
         if(path_exists(TEST_PATH3))
-            printf("\tpath_getsize(%s)     --> %ld\n", TEST_PATH3, path_getsize(TEST_PATH3));
+            printf("\tpath_getsize(%s)     --> %lld\n", TEST_PATH3, path_getsize(TEST_PATH3));
         if(0 == path_getamctime(TEST_PATH3, &atime, &mtime, &ctime))
             printf("\tpath_getamctime(%s) --> atime:%lu, mtime:%lu, ctime:%lu\n", TEST_PATH3, atime, mtime, ctime);
     }
@@ -207,7 +207,7 @@ int main(void)
         printf("\tpath_isabs(%s)   --> %d\n", TEST_PATH4, path_isabs(TEST_PATH4));
         printf("\tpath_exists(%s)     --> %d\n", TEST_PATH4, path_exists(TEST_PATH4));
         if(path_exists(TEST_PATH4))
-            printf("\tpath_getsize(%s)     --> %ld\n", TEST_PATH4, path_getsize(TEST_PATH4));
+            printf("\tpath_getsize(%s)     --> %lld\n", TEST_PATH4, path_getsize(TEST_PATH4));
         if(0 == path_getamctime(TEST_PATH4, &atime, &mtime, &ctime))
             printf("\tpath_getamctime(%s) --> atime:%lu, mtime:%lu, ctime:%lu\n", TEST_PATH4, atime, mtime, ctime);
     }
