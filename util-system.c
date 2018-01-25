@@ -137,7 +137,6 @@ char *get_user_name_by_uid(users_passwd_t *users, int uid)
     return NULL;
 }
 
-#if 1
 // /var/run/utmp  --  database of currently logged-in users
 // /var/log/wtmp  --  database of past user logins
 
@@ -291,8 +290,6 @@ void users_utmp_print(users_utmp_t *users)
     }
     printf("\b \n");
 }
-
-#endif
 
 #ifdef SYSTEM_MAIN
 int main(int argc, char const *argv[])
